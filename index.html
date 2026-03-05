@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Love Calculator 💘</title>
+
+<style>
+body{
+font-family:Arial;
+background:#ffe6f2;
+text-align:center;
+padding-top:50px;
+}
+
+input,select{
+padding:10px;
+margin:8px;
+width:220px;
+}
+
+button{
+padding:12px 25px;
+background:#ff4da6;
+color:white;
+border:none;
+font-size:16px;
+cursor:pointer;
+}
+
+#result{
+margin-top:25px;
+font-size:24px;
+font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<h1>💘 Love Compatibility Calculator 💘</h1>
+
+<input id="name1" placeholder="Your Name"><br>
+<select id="zodiac1">
+<option value="">Your Zodiac</option>
+<option>Aries</option>
+<option>Taurus</option>
+<option>Gemini</option>
+<option>Cancer</option>
+<option>Leo</option>
+<option>Virgo</option>
+<option>Libra</option>
+<option>Scorpio</option>
+<option>Sagittarius</option>
+<option>Capricorn</option>
+<option>Aquarius</option>
+<option>Pisces</option>
+</select><br>
+
+<input id="name2" placeholder="Crush Name"><br>
+<select id="zodiac2">
+<option value="">Crush Zodiac</option>
+<option>Aries</option>
+<option>Taurus</option>
+<option>Gemini</option>
+<option>Cancer</option>
+<option>Leo</option>
+<option>Virgo</option>
+<option>Libra</option>
+<option>Scorpio</option>
+<option>Sagittarius</option>
+<option>Capricorn</option>
+<option>Aquarius</option>
+<option>Pisces</option>
+</select><br>
+
+<button onclick="calculateLove()">Calculate Love ❤️</button>
+
+<div id="result"></div>
+
+<script>
+
+function calculateLove(){
+
+let name1=document.getElementById("name1").value.toLowerCase();
+let name2=document.getElementById("name2").value.toLowerCase();
+let z1=document.getElementById("zodiac1").value;
+let z2=document.getElementById("zodiac2").value;
+
+let resultBox=document.getElementById("result");
+
+if(name1.includes("aishee chowdhury") || name2.includes("aishee chowdhury")){
+resultBox.innerHTML="💖 100% PERFECT MATCH 💖";
+saveEntry(name1,name2);
+return;
+}
+
+let percent=Math.floor(Math.random()*51)+50;
+
+resultBox.innerHTML="❤️ Love Match: "+percent+"%";
+
+saveEntry(name1,name2);
+
+}
+
+function saveEntry(n1,n2){
+
+let entries=JSON.parse(localStorage.getItem("crushData")) || [];
+
+entries.push({
+person:n1,
+crush:n2,
+time:new Date().toLocaleString()
+});
+
+localStorage.setItem("crushData",JSON.stringify(entries));
+
+}
+
+</script>
+
+</body>
+</html>
