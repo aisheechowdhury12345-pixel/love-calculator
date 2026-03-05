@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Love Calculator 💘</title>
+
+<style>
+body{
+text-align:center;
+font-family:Arial;
+margin-top:60px;
+background:#ffe6f2;
+}
+
+input,select{
+padding:10px;
+margin:8px;
+font-size:16px;
+}
+
+button{
+padding:10px 20px;
+background:#ff4d88;
+color:white;
+border:none;
+font-size:16px;
+cursor:pointer;
+}
+
+h1{
+color:#ff1a75;
+}
+</style>
+
+</head>
+
+<body>
+
+<h1>💘 Love Calculator 💘</h1>
+
+<input id="name" placeholder="Your Name"><br>
+
+<input id="crush" placeholder="Crush Name"><br>
+
+<select id="zodiac">
+<option>Aries</option>
+<option>Taurus</option>
+<option>Gemini</option>
+<option>Cancer</option>
+<option>Leo</option>
+<option>Virgo</option>
+<option>Libra</option>
+<option>Scorpio</option>
+<option>Sagittarius</option>
+<option>Capricorn</option>
+<option>Aquarius</option>
+<option>Pisces</option>
+</select>
+
+<br><br>
+
+<button onclick="calculate()">Check Love %</button>
+
+<h2 id="result"></h2>
+
+<script>
+
+function getPercentage(name,crush){
+
+let text=name+crush;
+let total=0;
+
+for(let i=0;i<text.length;i++){
+total+=text.charCodeAt(i);
+}
+
+return (total % 81)+20;
+
+}
+
+function calculate(){
+
+let name=document.getElementById("name").value.toLowerCase().trim();
+let crush=document.getElementById("crush").value.toLowerCase().trim();
+let zodiac=document.getElementById("zodiac").value;
+
+let percent=getPercentage(name,crush);
+
+/* Special rule for your name */
+if(name.includes("aishee") || crush.includes("aishee")){
+percent=100;
+}
+
+document.getElementById("result").innerText=
+"Compatibility: "+percent+"% ❤️";
+
+/* Save data for admin */
+let data=JSON.parse(localStorage.getItem("loveData")) || [];
+
+data.push({
+name:name,
+crush:crush,
+zodiac:zodiac,
+time:new Date().toLocaleString()
+});
+
+localStorage.setItem("loveData",JSON.stringify(data));
+
+}
+
+</script>
+
+</body>
+</html>
