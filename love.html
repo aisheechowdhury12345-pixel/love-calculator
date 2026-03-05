@@ -64,13 +64,15 @@ color:#ff1a75;
 
 <script>
 
-function getPercentage(name,crush){
+function stablePercentage(name,crush){
 
-let text=name+crush;
+/* Make order same every time */
+let pair=[name,crush].sort().join("");
+
 let total=0;
 
-for(let i=0;i<text.length;i++){
-total+=text.charCodeAt(i);
+for(let i=0;i<pair.length;i++){
+total+=pair.charCodeAt(i);
 }
 
 return (total % 81)+20;
@@ -81,9 +83,8 @@ function calculate(){
 
 let name=document.getElementById("name").value.toLowerCase().trim();
 let crush=document.getElementById("crush").value.toLowerCase().trim();
-let zodiac=document.getElementById("zodiac").value;
 
-let percent=getPercentage(name,crush);
+let percent=stablePercentage(name,crush);
 
 /* Special rule for your name */
 if(name.includes("aishee") || crush.includes("aishee")){
@@ -92,18 +93,6 @@ percent=100;
 
 document.getElementById("result").innerText=
 "Compatibility: "+percent+"% ❤️";
-
-/* Save data for admin */
-let data=JSON.parse(localStorage.getItem("loveData")) || [];
-
-data.push({
-name:name,
-crush:crush,
-zodiac:zodiac,
-time:new Date().toLocaleString()
-});
-
-localStorage.setItem("loveData",JSON.stringify(data));
 
 }
 
